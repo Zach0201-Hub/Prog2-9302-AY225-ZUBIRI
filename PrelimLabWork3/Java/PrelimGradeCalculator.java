@@ -1,55 +1,132 @@
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PrelimGradeCalculator {
+public class PrelimGradeCalculator extends JFrame {
 
-    @SuppressWarnings("ConvertToTryWithResources")
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    @SuppressWarnings("FieldMayBeFinal")
+    private JTextField attendanceField;
+    @SuppressWarnings("FieldMayBeFinal")
+    private JTextField lab1Field;
 
-        // INPUTS
-        System.out.print("Enter Attendance Grade: ");
-        double attendance = sc.nextDouble();
+    @SuppressWarnings("FieldMayBeFinal")
+    private JTextField lab2Field;
+    @SuppressWarnings("FieldMayBeFinal")
+    private JTextField lab3Field;
+    @SuppressWarnings("FieldMayBeFinal")
+    private JTextArea outputArea;
 
-        System.out.print("Enter Lab Work 1 Grade: ");
-        double lab1 = sc.nextDouble();
+    @SuppressWarnings("Convert2Lambda")
+    public PrelimGradeCalculator() {
+        setTitle("Prelim Grade Calculator");
+        setSize(520, 520);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout(10, 10));
 
-        System.out.print("Enter Lab Work 2 Grade: ");
-        double lab2 = sc.nextDouble();
+        // ===== TITLE =====
+        JLabel title = new JLabel("Prelim Grade Calculator", JLabel.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        title.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
+        add(title, BorderLayout.NORTH);
 
-        System.out.print("Enter Lab Work 3 Grade: ");
-        double lab3 = sc.nextDouble();
+        // ===== INPUT PANEL =====
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+        inputPanel.setBorder(BorderFactory.createTitledBorder("Student Inputs"));
 
-        // COMPUTATIONS
-        double labWorkAverage = (lab1 + lab2 + lab3) / 3;
-        double classStanding = (attendance * 0.40) + (labWorkAverage * 0.60);
+        attendanceField = new JTextField();
+        lab1Field = new JTextField();
+        lab2Field = new JTextField();
+        lab3Field = new JTextField();
 
-        double requiredPrelimPass =
-                (75 - (classStanding * 0.70)) / 0.30;
+        inputPanel.add(new JLabel("Attendance Grade:"));
+        inputPanel.add(attendanceField);
+        inputPanel.add(new JLabel("Lab Work 1 Grade:"));
+        inputPanel.add(lab1Field);
+        inputPanel.add(new JLabel("Lab Work 2 Grade:"));
+        inputPanel.add(lab2Field);
+        inputPanel.add(new JLabel("Lab Work 3 Grade:"));
+        inputPanel.add(lab3Field);
 
-        double requiredPrelimExcellent =
-                (100 - (classStanding * 0.70)) / 0.30;
+        add(inputPanel, BorderLayout.CENTER);
 
-        // OUTPUT
-        System.out.println("\n===== RESULTS =====");
-        System.out.printf("Attendance Grade: %.2f%n", attendance);
-        System.out.printf("Lab Work Average: %.2f%n", labWorkAverage);
-        System.out.printf("Class Standing: %.2f%n", classStanding);
+        // ===== BUTTON =====
+        JButton computeBtn = new JButton("Compute Prelim Grades");
+        computeBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        System.out.printf("\nRequired Prelim Exam to PASS (75): %.2f%n",
-                requiredPrelimPass);
-        System.out.printf("Required Prelim Exam for EXCELLENT (100): %.2f%n",
-                requiredPrelimExcellent);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(computeBtn);
+        add(buttonPanel, BorderLayout.SOUTH);
 
-        // REMARKS
-        System.out.println("\nRemarks:");
-        if (requiredPrelimPass > 100) {
-            System.out.println("❌ Passing the prelim is no longer achievable.");
-        } else if (requiredPrelimPass <= 0) {
-            System.out.println("✅ You already passed the prelim!");
-        } else {
-            System.out.println("📌 You must work hard to reach the target prelim score.");
+        // ===== OUTPUT AREA =====
+        outputArea = new JTextArea(10, 40);
+        outputArea.setEditable(false);
+        outputArea.setFont(new Font("Consolas", Font.PLAIN, 13));
+        outputArea.setBorder(BorderFactory.createTitledBorder("Results"));
+
+        add(new JScrollPane(outputArea), BorderLayout.EAST);
+
+        // ===== BUTTON ACTION =====
+        computeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                computeGrades();
+            }
+        });
+    }
+
+    private void computeGrades() {
+        try {
+            double attendance = Double.parseDouble(attendanceField.getText());
+            double lab1 = Double.parseDouble(lab1Field.getText());
+            double lab2 = Double.parseDouble(lab2Field.getText());
+            double lab3 = Double.parseDouble(lab3Field.getText());
+
+            double labAverage = (lab1 + lab2 + lab3) / 3;
+            double classStanding = (attendance * 0.40) + (labAverage * 0.60);
+
+            double requiredPass = (75 - (classStanding * 0.70)) / 0.30;
+            double requiredExcellent = (100 - (classStanding * 0.70)) / 0.30;
+
+            StringBuilder result = new StringBuilder();
+            result.append(String.format("Attendance Grade: %.2f%n", attendance));
+            result.append(String.format("Lab Work Average: %.2f%n", labAverage));
+            result.append(String.format("Class Standing: %.2f%n%n", classStanding));
+
+            result.append(String.format("Required Prelim to PASS (75): %.2f%n", requiredPass));
+            result.append(String.format("Required Prelim for EXCELLENT (100): %.2f%n%n", requiredExcellent));
+
+            // Academic Remarks
+            if (requiredPass > 100) {
+                result.append("Remarks (Passing): Passing the prelim period is no longer attainable.\n");
+            } else if (requiredPass <= 0) {
+                result.append("Remarks (Passing): The student has already secured a passing prelim grade.\n");
+            } else {
+                result.append("Remarks (Passing): The student must obtain at least the computed prelim score.\n");
+            }
+
+            if (requiredExcellent > 100) {
+                result.append("Remarks (Excellent): Achieving an excellent prelim grade is not attainable.");
+            } else if (requiredExcellent <= 0) {
+                result.append("Remarks (Excellent): The student has already achieved an excellent standing.");
+            } else {
+                result.append("Remarks (Excellent): The student must obtain the computed prelim score.");
+            }
+
+            outputArea.setText(result.toString());
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numeric values.",
+                    "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
+    }
 
-        sc.close();
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new PrelimGradeCalculator().setVisible(true);
+        });
     }
 }

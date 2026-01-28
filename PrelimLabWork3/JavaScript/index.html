@@ -3,59 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Prelim Grade Calculator</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card {
-            background: #ffffff;
-            width: 350px;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        button {
-            background: #4facfe;
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background: #00c6ff;
-            transform: scale(1.05);
-        }
-
-        footer {
-            margin-top: 15px;
-            font-size: 12px;
-            color: #777;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="card">
-        <h2>Prelim Grade Calculator</h2>
-        <button onclick="computeGrades()">Compute Grades</button>
+    <div class="container">
+        <h1>Prelim Grade Calculator</h1>
+
+        <div class="card">
+            <h2>Student Inputs</h2>
+
+            <label>Attendance Grade</label>
+            <input type="number" id="attendance" placeholder="0 - 100">
+
+            <label>Lab Work 1</label>
+            <input type="number" id="lab1" placeholder="0 - 100">
+
+            <label>Lab Work 2</label>
+            <input type="number" id="lab2" placeholder="0 - 100">
+
+            <label>Lab Work 3</label>
+            <input type="number" id="lab3" placeholder="0 - 100">
+
+            <button onclick="computeGrades()">Compute Grades</button>
+        </div>
+
+        <div class="card result">
+            <h2>Results</h2>
+            <pre id="output">Awaiting input...</pre>
+        </div>
     </div>
 
     <script src="prelimGradeCalculator.js"></script>
