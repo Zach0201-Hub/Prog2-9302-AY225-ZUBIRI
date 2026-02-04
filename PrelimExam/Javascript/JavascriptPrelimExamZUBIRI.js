@@ -14,14 +14,17 @@ fetch('MOCK_DATA.csv')
     .then(csvText => {
         const lines = csvText.trim().split('\n');
 
-        // Assuming header: ID,FirstName,LastName,Grade
+        // Map CSV lines into student objects
         students = lines.slice(1).map(line => {
             const values = line.split(',');
             return {
                 id: values[0],
                 firstName: values[1],
                 lastName: values[2],
-                grade: values[3]
+                lab1: values[3],
+                lab2: values[4],
+                lab3: values[5],
+                prelimExam: values[6]
             };
         });
 
@@ -40,7 +43,10 @@ function render() {
             <td>${student.id}</td>
             <td>${student.firstName}</td>
             <td>${student.lastName}</td>
-            <td>${student.grade}</td>
+            <td>${student.lab1}</td>
+            <td>${student.lab2}</td>
+            <td>${student.lab3}</td>
+            <td>${student.prelimExam}</td>
             <td><button onclick="deleteRecord(${index})">Delete</button></td>
         `;
         tbody.appendChild(row);
@@ -52,19 +58,26 @@ function addRecord() {
     const id = document.getElementById('idInput').value.trim();
     const firstName = document.getElementById('firstNameInput').value.trim();
     const lastName = document.getElementById('lastNameInput').value.trim();
-    const grade = document.getElementById('gradeInput').value.trim();
+    const lab1 = document.getElementById('lab1Input').value.trim();
+    const lab2 = document.getElementById('lab2Input').value.trim();
+    const lab3 = document.getElementById('lab3Input').value.trim();
+    const prelimExam = document.getElementById('prelimInput').value.trim();
 
-    if (!id || !firstName || !lastName || !grade) {
+    if (!id || !firstName || !lastName || !lab1 || !lab2 || !lab3 || !prelimExam) {
         alert('Please fill in all fields.');
         return;
     }
 
-    students.push({ id, firstName, lastName, grade });
+    students.push({ id, firstName, lastName, lab1, lab2, lab3, prelimExam });
 
+    // Clear input fields
     document.getElementById('idInput').value = '';
     document.getElementById('firstNameInput').value = '';
     document.getElementById('lastNameInput').value = '';
-    document.getElementById('gradeInput').value = '';
+    document.getElementById('lab1Input').value = '';
+    document.getElementById('lab2Input').value = '';
+    document.getElementById('lab3Input').value = '';
+    document.getElementById('prelimInput').value = '';
 
     render();
 }

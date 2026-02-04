@@ -27,7 +27,7 @@ public class StudentRecordSystem extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        tableModel = new DefaultTableModel(new String[]{"ID", "Name", "Grade"}, 0);
+        tableModel = new DefaultTableModel(new String[]{"ID", "First Name", "Last Name" , "Lab Work 1" , "Lab Work 2" , "Lab Work 3" , "Prelim Exam"}, 0);
         table = new JTable(tableModel);
 
         JScrollPane scrollPane = new JScrollPane(table);
