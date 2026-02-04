@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JavaPrelimExamZUBIRI extends JFrame {
+public class StudentRecordSystem extends JFrame {
 
     private JTable table;
     private DefaultTableModel tableModel;
@@ -19,7 +19,7 @@ public class JavaPrelimExamZUBIRI extends JFrame {
     private JTextField nameField;
     private JTextField gradeField;
 
-    public JavaPrelimExamZUBIRI() {
+    public StudentRecordSystem() {
         // JFrame Title with Identifier
         this.setTitle("Student Records - Zach Aeon R. Zubiri STUDENT ID");
 
@@ -80,26 +80,27 @@ public class JavaPrelimExamZUBIRI extends JFrame {
     }
 
     private void loadCSVData() {
-        String fileName = "MOCK_DATA.csv";
+    String fileName = "C:\\Users\\Philip\\Desktop\\Zach Python\\Prog2Folder\\Prog2-9302-AY225-ZUBIRI\\PrelimExam\\Java\\MOCK_DATA.csv";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            br.readLine(); // skip header
+    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        br.readLine(); // skip header
 
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                tableModel.addRow(data);
-            }
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Error reading CSV file.",
-                    "File Error",
-                    JOptionPane.ERROR_MESSAGE);
+        while ((line = br.readLine()) != null) {
+            String[] data = line.split(",");
+            tableModel.addRow(data);
         }
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this,
+                "Error reading CSV file.",
+                "File Error",
+                JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new JavaPrelimExamZUBIRI().setVisible(true));
+        SwingUtilities.invokeLater(() -> new StudentRecordSystem().setVisible(true));
     }
 }

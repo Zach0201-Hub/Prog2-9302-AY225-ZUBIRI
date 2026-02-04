@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records - Zach Aeon R. Zubiri STUDENT ID</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        input { margin: 0 5px; padding: 4px; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+<h1>Student Records - Zach Aeon R. Zubiri STUDENT ID</h1>
+
+<div>
+    ID: <input type="text" id="idInput" size="8">
+    First Name: <input type="text" id="firstNameInput" size="10">
+    Last Name: <input type="text" id="lastNameInput" size="10">
+    Grade: <input type="text" id="gradeInput" size="6">
+    <button onclick="addRecord()">Add</button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Grade</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <!-- Table rows will go here -->
+    </tbody>
+</table>
+
+<script src="JavascriptPrelimExamZUBIRI.js"></script>
+</body>
+</html>
