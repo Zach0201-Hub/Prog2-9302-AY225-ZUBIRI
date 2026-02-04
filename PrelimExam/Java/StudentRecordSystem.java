@@ -1,6 +1,6 @@
 /*
  Programmer Identifier:
- Zach Aeon R. Zubiri - STUDENT ID
+ Zach Aeon R. Zubiri - 23-0932-265
 */
 
 import java.awt.*;
@@ -21,7 +21,7 @@ public class StudentRecordSystem extends JFrame {
 
     public StudentRecordSystem() {
         // JFrame Title with Identifier
-        this.setTitle("Student Records - Zach Aeon R. Zubiri STUDENT ID");
+        this.setTitle("Student Records - Zach Aeon R. Zubiri 23-0932-265");
 
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
